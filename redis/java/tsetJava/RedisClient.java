@@ -1,3 +1,5 @@
+package tsetJava;
+
 import org.junit.Test;
 import redis.clients.jedis.*;
 
@@ -22,6 +24,11 @@ public class RedisClient {
         private JedisPool jedisPool;//非切片连接池
         private ShardedJedis shardedJedis;//切片额客户端连接
         private ShardedJedisPool shardedJedisPool;//切片连接池
+
+        //Redis 默认是单机环境使用的。
+        //数据量较大时需要shard（多机环境），这个时候要用ShardedJedis。
+        //ShardedJedis是基于一致性哈希算法实现的分布式Redis缓存集群客户端
+        //区别: ShardedJedis不支持多命令操作，像mget、mset、brpop等可以在redis命令后一次性操作多个key的命令
 
         public RedisClient()
         {
@@ -73,10 +80,10 @@ public class RedisClient {
 
         @Test
         public  void show() {
-                KeyOperate();
-//                StringOperate();
-//                ListOperate();
-//                SetOperate();
+                //KeyOperate();
+               //StringOperate();
+                //ListOperate();
+                SetOperate();
 //                SortedSetOperate();
 //                HashOperate();
                 jedisPool.returnResource(jedis);
@@ -86,7 +93,10 @@ public class RedisClient {
 
         private void KeyOperate()
         {
-                // 清空数据
+                // 清空当前表里所有数据
+                System.out.println("清空库中所有数据："+jedis.flushDB());
+
+                // 清空所有表里所有数据
                 System.out.println("清空库中所有数据："+jedis.flushDB());
                 // 判断key否存在
                 System.out.println("判断key999键是否存在："+shardedJedis.exists("key999"));
@@ -96,11 +106,12 @@ public class RedisClient {
                 System.out.println("新增key002,value002键值对："+shardedJedis.set("key002", "value002"));
                 System.out.println("系统中所有键如下：");
                 Set<String> keys = jedis.keys("*");
-                Iterator<String> it=keys.iterator() ;
-                while(it.hasNext()){
-                        String key = it.next();
+                Iterator<String> kk=keys.iterator();
+                while (kk.hasNext()){
+                        String key=kk.next();
                         System.out.println(key);
                 }
+
                 // 删除某个key,若key不存在，则忽略该命令。
                 System.out.println("系统中删除key002: "+jedis.del("key002"));
                 System.out.println("判断key002是否存在："+shardedJedis.exists("key002"));
@@ -122,6 +133,14 @@ public class RedisClient {
          * 一些其他方法：1、修改键名：jedis.rename("key6", "key0");
          *             2、将当前db的key移动到给定的db当中：jedis.move("foo", 1)
          */
+                jedis.set("age","99");
+                jedis.set("name","ww","NX");  // 第三个参数的值只能取NX或者XX，如果取NX，则只有当key不存在是才进行set，如果取XX，则只有当key已经存在时才进行set
+
+                jedis.get("name");
+                jedis.get("age");
+                jedis.rename("name", "name-ww");
+                jedis.move("name-ww",2);
+
         }
 
 
@@ -212,18 +231,15 @@ public class RedisClient {
                 System.out.println("清空库中所有数据："+jedis.flushDB());
 
                 System.out.println("=============增=============");
-                shardedJedis.lpush("stringlists", "vector");
-                shardedJedis.lpush("stringlists", "ArrayList");
-                shardedJedis.lpush("stringlists", "vector");
-                shardedJedis.lpush("stringlists", "vector");
-                shardedJedis.lpush("stringlists", "LinkedList");
-                shardedJedis.lpush("stringlists", "MapList");
-                shardedJedis.lpush("stringlists", "SerialList");
-                shardedJedis.lpush("stringlists", "HashList");
+
+
+                shardedJedis.lpush("stringlists", "vector1");
+                shardedJedis.lpush("stringlists", "vector2");
+                shardedJedis.lpush("stringlists", "vector3");
+                shardedJedis.lpush("stringlists", "vector4");
+                shardedJedis.lpush("stringlists", "vector5");
                 shardedJedis.lpush("numberlists", "3");
                 shardedJedis.lpush("numberlists", "1");
-                shardedJedis.lpush("numberlists", "5");
-                shardedJedis.lpush("numberlists", "2");
                 System.out.println("所有元素-stringlists："+shardedJedis.lrange("stringlists", 0, -1));
                 System.out.println("所有元素-numberlists："+shardedJedis.lrange("numberlists", 0, -1));
 
