@@ -3,17 +3,10 @@ package otherJava;
 /**
  * Created by wangwu on 2019/1/18.
  */
-public abstract class CFather implements  A{
+public  class CFather implements  A{
         protected   static  String aa="aaa";
         protected  static  String bb="bb";
 
-//        public static void main(String[] args) {
-//                new otherJava.CFather(1);
-//        }
-        static {
-                System.out.println(aa);
-                System.out.println("哈哈");
-        }
 
         public void say(){
                 System.out.println("fuqinsay");
@@ -36,15 +29,9 @@ public abstract class CFather implements  A{
                 maren();
         }
 
+        @Override
+        public void maren() {
 
-        public abstract void maren();
-
-//        public otherJava.CFather(){
-//        init();
-//        }
-
-//        public otherJava.CFather(int a){
-//                System.out.println(a);
-//        }
+        }
 
 }

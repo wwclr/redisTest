@@ -4,19 +4,10 @@ package otherJava;
  * Created by wangwu on 2019/1/18.
  */
 public class C extends CFather{
+        protected   static  String aa="bbb";
         public static void main(String[] args) {
-               // List<Integer> integerList=new ArrayList<Integer>();
-                //System.out.println(integerList.getClass());
-//                otherJava.A a=new otherJava.C();
-//                System.out.println(a.getClass());
-//                otherJava.B b=new otherJava.C();
-//                System.out.println(b.getClass());
-               //otherJava.CFather cFather=new otherJava.C();
-                //cFather.say();
-               C a=new C();
+                C c=new C();
 
-              a.fuqinsayhaha();
-                //System.out.println(bb);
         }
 
         public C() {
@@ -26,6 +17,8 @@ public class C extends CFather{
         public C(int a) {
                 System.out.println("contructor a");
         }
+
+
 
         public  void han(){
                 System.out.println("erzihan");
@@ -63,11 +56,4 @@ public class C extends CFather{
         }
 
 
-}
-
-   class  D {
-        public static void main(String[] args) {
-             C c=new C(1);
-               // c.han();
-        }
 }
