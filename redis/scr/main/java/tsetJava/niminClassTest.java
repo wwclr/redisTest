@@ -1,7 +1,5 @@
 package tsetJava;
 
-import otherJava.C1;
-
 /**
  * Created by wangwu on 2019/1/25.
  */
