@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
  */
 public class lamada {
         public static void lamadaTeset(){
+                System.out.println("wwwwww");
                 List<Integer> list= Lists.newArrayList(3,6,1,2,8,1);
 
 //                list= list.stream().sorted((p1,p2)->p1-p2).collect(Collectors.toList());
