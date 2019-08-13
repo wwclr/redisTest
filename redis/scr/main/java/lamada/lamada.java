@@ -16,11 +16,11 @@ public class lamada {
                 List<Integer> list= Lists.newArrayList(3,6,1,2,8,1);
 
 //                list= list.stream().sorted((p1,p2)->p1-p2).collect(Collectors.toList());
-                list=list.stream().sorted(Integer::compareTo).collect(Collectors.toList());
+                list = list.stream().sorted(Integer::compareTo).collect(Collectors.toList());
                 list.stream().forEach(System.out::println);
 //                list=list.stream().sorted(Integer::compareTo).collect(Collectors.toList());
 
-                list=list.stream().sorted((p1,p2)->p1-p2).distinct().map(integer -> integer.intValue()).collect(Collectors.toList());
+                list = list.stream().sorted((p1, p2) -> p1 - p2).distinct().map(integer -> integer.intValue()).collect(Collectors.toList());
 
 //                list.stream().forEach(System.out::println);
 //                list=list.stream().distinct().collect(Collectors.toList());
